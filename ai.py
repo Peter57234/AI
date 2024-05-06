@@ -32,10 +32,6 @@ while running:
            if event.button == 1 in Button:
              with speech_recognition.Microphone() as mic:
               audio = robot_ear.listen(mic)
-             try:
-              you = robot_ear.recognize_google(audio, language = 'vi-VN')
-             except:
-              you = ""
              with speech_recognition.Microphone() as mic:  
               print("GoX2: Tôi đang nghe bạn nói đây.")
               robot_brain = "Tôi đang nghe bạn nói đây."
@@ -44,9 +40,10 @@ while running:
               robot_mouth.setProperty("voice", voices[1].id)
               robot_mouth.say(robot_brain)
               robot_mouth.runAndWait()
-              print("GoX2: ...")                          
+              print("GoX2: ...")   
+             try:
               you = robot_ear.recognize_google(audio, language = 'vi-VN')
-              print("You:" + you)            
+              print("You:" + you)   
               if you == "":
                 robot_brain = "Tôi không thể nghe bạn đang nói gì, hãy thử lại hoặc kiểm tra micro của bạn."
               elif "chào" in you:
@@ -60,8 +57,11 @@ while running:
               voices = robot_mouth.getProperty("voices")
               robot_mouth.setProperty("voice", voices[1].id)
               robot_mouth.say(robot_brain)
-              robot_mouth.runAndWait()           
+              robot_mouth.runAndWait()        
+             except:
+              you = ""                              
             
+           
     pygame.display.flip() 
 
 pygame.quit() 
